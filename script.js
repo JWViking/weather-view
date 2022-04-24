@@ -124,5 +124,6 @@ var getCoordinates = function (event) {
     
     
 };
-displaySearched("searchedCities");
+console.log(searchedCities);
+displaySearched(searchedCities);
 button.addEventListener("click", getCoordinates);
