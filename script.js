@@ -34,7 +34,7 @@ var dayFiveHumidity = document.getElementById("day-5-humidity");
 
 
 const appId = 'de4a638095d57c621b51e31ab4072354'
-var searchedCities = JSON.parse(localStorage.getItem("cityArr")) || [];
+var searchedCities = JSON.parse(localStorage.getItem(searchedCities)) || [];
 
 
 var displaySearched = function(cityArr) {
@@ -49,12 +49,12 @@ var displaySearched = function(cityArr) {
 
 
 var storeCity = function (cityName) {
-    searchedCities = JSON.parse(localStorage.getItem("cityArr")) || [];
+    searchedCities = JSON.parse(localStorage.getItem(searchedCities)) || [];
     searchedCities.push({ name: cityName })
     localStorage.setItem('searchedCities', JSON.stringify(searchedCities));
     console.log(cityName);
     console.log(searchedCities);
-    displaySearched("cityArr");
+    displaySearched(searchedCities);
 };
 
 var getCoordinates = function (event) {
