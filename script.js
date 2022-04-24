@@ -36,23 +36,25 @@ var dayFiveHumidity = document.getElementById("day-5-humidity");
 const appId = 'de4a638095d57c621b51e31ab4072354'
 var searchedCities = JSON.parse(localStorage.getItem("cityArr")) || [];
 
+
+var displaySearched = function(cityArr) {
+    for (var i=0; i< cityArr.length; i++) {
+       var createButton =  document.createElement("button");
+       createButton.innerHTML = cityArr[i].name;
+       createButton.className = "btn btn-secondary w-100 mt-3";
+       var parentDiv = document.getElementById("history");
+       parentDiv.appendChild(createButton);
+    }
+};
+
+
 var storeCity = function (cityName) {
     searchedCities = JSON.parse(localStorage.getItem("cityArr")) || [];
     searchedCities.push({ name: cityName })
     localStorage.setItem('searchedCities', JSON.stringify(searchedCities));
     console.log(cityName);
     console.log(searchedCities);
-    displaySearched(cityArr);
-
-    var displaySearched = function(cityArr) {
-        for (var i=0; i< cityArr.length; i++) {
-           var createButton =  document.createElement("button");
-           createButton.textContent = cityArr[i].name;
-           createButton.className = "btn btn-secondary w-100 mt-3";
-           var parentDiv = document.getElementById("history");
-           parentDiv.appendChild(createButton);
-
-    }
+    displaySearched("cityArr");
 };
 
 var getCoordinates = function (event) {
@@ -119,6 +121,7 @@ var getCoordinates = function (event) {
                         })
                 });
         });
+    
     
 };
 
