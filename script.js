@@ -37,10 +37,10 @@ const appId = 'de4a638095d57c621b51e31ab4072354'
 var searchedCities = JSON.parse(localStorage.getItem(searchedCities)) || [];
 
 
-var displaySearched = function(cityArr) {
-    for (var i=0; i< cityArr.length; i++) {
+var displaySearched = function(searchedCities) {
+    for (var i=0; i< searchedCities.length; i++) {
        var createButton =  document.createElement("button");
-       createButton.innerHTML = cityArr[i].name;
+       createButton.innerHTML = searchedCities[i].name;
        createButton.className = "btn btn-secondary w-100 mt-3";
        var parentDiv = document.getElementById("history");
        parentDiv.appendChild(createButton);
