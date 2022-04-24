@@ -38,11 +38,16 @@ var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
 
 
 var displaySearched = function(searchedCities) {
+    var parentDiv = document.getElementById("history");
+    parentDiv.innerHTML = ""
+    var createButton =  document.createElement("button");
+       createButton.innerHTML = 'Previous Searches';
+       createButton.className = "btn btn-secondary w-100 mt-3";
+       parentDiv.appendChild(createButton);
     for (var i=0; i< searchedCities.length; i++) {
        var createButton =  document.createElement("button");
        createButton.innerHTML = searchedCities[i].name;
        createButton.className = "btn btn-secondary w-100 mt-3";
-       var parentDiv = document.getElementById("history");
        parentDiv.appendChild(createButton);
     }
 };
