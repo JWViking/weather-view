@@ -106,7 +106,7 @@ var getWeather = function (cityName) {
                             else {
                                 cityUvi.classList.add("green")
                             }
-                            
+
                             cityWind.innerHTML = "Wind: " + currentWeather.wind.speed + " mph";
                             cityHumidity.innerHTML = "Humidity: "+currentWeather.main.humidity+"%";
 
@@ -157,4 +157,5 @@ var getCoordinates = function (event) {
 
 console.log(searchedCities);
 displaySearched(searchedCities);
+getWeather(searchedCities[searchedCities.length-1].name);
 button.addEventListener("click", getCoordinates);
