@@ -13,7 +13,7 @@ var dayFourDate = document.getElementById("day-4-date");
 var dayFiveDate = document.getElementById("day-5-date");
 var dayOneIcon = document.getElementById("day-1-icon");
 var dayTwoIcon = document.getElementById("day-2-icon");
-var dayThreeIcon = document.getElementById("day-2-icon");
+var dayThreeIcon = document.getElementById("day-3-icon");
 var dayFourIcon = document.getElementById("day-4-icon");
 var dayFiveIcon = document.getElementById("day-5-icon");
 var dayOneTemp = document.getElementById("day-1-temp");
@@ -32,7 +32,7 @@ var dayThreeHumidity = document.getElementById("day-3-humidity");
 var dayFourHumidity = document.getElementById("day-4-humidity");
 var dayFiveHumidity = document.getElementById("day-5-humidity");
 
-
+// Api key
 const appId = 'de4a638095d57c621b51e31ab4072354'
 var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
 
@@ -47,8 +47,15 @@ var displaySearched = function(searchedCities) {
     for (var i=0; i< searchedCities.length; i++) {
        var createButton =  document.createElement("button");
        createButton.innerHTML = searchedCities[i].name;
-       createButton.className = "btn btn-secondary w-100 mt-3";
+       createButton.className = "prior-search btn btn-secondary w-100 mt-3";
        parentDiv.appendChild(createButton);
+    }
+    var priorSearch = document.querySelectorAll(".prior-search");
+    for (var i=0; i< priorSearch.length; i++) {
+        priorSearch[i].addEventListener("click", function(event) {
+            var city = event.target.textContent
+            getWeather(city)
+        })
     }
 };
 
@@ -62,13 +69,10 @@ var storeCity = function (cityName) {
     displaySearched(searchedCities);
 };
 
-var getCoordinates = function (event) {
-    event.preventDefault();
-    storeCity(cityName.value);
-
+var getWeather = function (cityName) {
     var appId = 'de4a638095d57c621b51e31ab4072354'
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${appId}&units=imperial`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${appId}&units=imperial`)
         .then(function (response) {
             response.json()
                 .then(function (currentWeather) {
@@ -86,6 +90,23 @@ var getCoordinates = function (event) {
                             cityDate.innerHTML = currentWeather.name + moment(currentWeather.dt, "X").format(" MM/DD/YYYY") + `<img src="http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png">`;
                             cityTemp.innerHTML = "Temp: " + currentWeather.main.temp + " Degrees Fahrenheit";
                             cityUvi.innerHTML = "UV Index: "+ fiveDayWeather.current.uvi;
+                            var currentUvi = fiveDayWeather.current.uvi
+                            if(currentUvi>=11) {
+                                cityUvi.classList.add("purple")
+                            }
+                            else if(currentUvi>=8 && currentUvi<=10) {
+                                cityUvi.classList.add("red")
+                            }
+                            else if(currentUvi>=6 && currentUvi<=7) {
+                                cityUvi.classList.add("orange")
+                            }
+                            else if(currentUvi>=3 && currentUvi<=5) {
+                                cityUvi.classList.add("yellow")
+                            }
+                            else {
+                                cityUvi.classList.add("green")
+                            }
+                            
                             cityWind.innerHTML = "Wind: " + currentWeather.wind.speed + " mph";
                             cityHumidity.innerHTML = "Humidity: "+currentWeather.main.humidity+"%";
 
@@ -126,9 +147,14 @@ var getCoordinates = function (event) {
                         })
                 });
         });
-    
-    
-};
+}
+
+var getCoordinates = function (event) {
+    event.preventDefault();
+    storeCity(cityName.value);
+    getWeather(cityName.value);
+}
+
 console.log(searchedCities);
 displaySearched(searchedCities);
 button.addEventListener("click", getCoordinates);

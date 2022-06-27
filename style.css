@@ -1,3 +1,34 @@
 hr {
     background-color:black;
 }
+
+/* UV 11+ */
+.purple {
+    background-color: blueviolet;
+    color:white;
+}
+
+/* UV 8-10 */
+.red {
+    background-color: red;
+    color:white;
+}
+
+/* UV 6-7*/
+.orange {
+    background-color: rgb(245,120,37);
+    color:white;
+}
+
+/* UV 3-5 */
+.yellow {
+    background-color: rgb(245,221,37);
+    color:black;
+}
+
+/* Green */
+.green {
+    background-color: rgb(59,245,34);
+    color: black;
+}
+
