@@ -37,6 +37,8 @@ const appId = 'de4a638095d57c621b51e31ab4072354'
 var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
 
 
+// increments through previously serached cities to create buttons and adds functionality to the getWeather function 
+// to click on those buttons to view previous searched cities.
 var displaySearched = function(searchedCities) {
     var parentDiv = document.getElementById("history");
     parentDiv.innerHTML = ""
@@ -60,6 +62,8 @@ var displaySearched = function(searchedCities) {
 };
 
 
+// stores searched cities in local storage, then calls displaySearched to start the button
+// and display of search history process
 var storeCity = function (cityName) {
     searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
     searchedCities.push({ name: cityName })
@@ -69,6 +73,7 @@ var storeCity = function (cityName) {
     displaySearched(searchedCities);
 };
 
+// API call to fetch data for the weather display on cards. 
 var getWeather = function (cityName) {
     var appId = 'de4a638095d57c621b51e31ab4072354'
 
